@@ -7,6 +7,8 @@ def find_nft_contract_properties(r):
         RES["price"] = int(r["getPrice"])
     elif "cost" in r:
         RES["price"] = int(r["cost"])
+    elif "baseCost" in r:
+        RES["price"] = int(r["baseCost"])
 
     if "totalSupply" in r:
         RES["total_supply"] = int(r["totalSupply"])
@@ -15,18 +17,27 @@ def find_nft_contract_properties(r):
         RES["max_supply"] = int(r["MAX_SUPPLY"])
     elif "maxSupply" in r:
         RES["max_supply"] = int(r["maxSupply"])
+    elif "_maxTotalSupply" in r:
+        RES["max_supply"] = int(r["_maxTotalSupply"])
         
 
     if "saleStarted" in r:
-        RES["sale_started"] = bool(r["saleStarted"])
+        RES["paused"] = r["saleStarted"] == "False"
     elif "paused" in r:
-        RES["sale_started"] = not bool(r["paused"])
+        RES["paused"] = r["paused"] == "True"
+    elif "_paused" in r:
+        RES["paused"] = r["_paused"] == "True"
 
     
-    if "maxMintAmount" in r:
+    if "maxMintPerTransaction" in r:
+        RES["max_tokens_per_mint"] = int(r["maxMintPerTransaction"])  
+    elif "maxMintAmount" in r:  # ???? should we add max tokens per user separately?
         RES["max_tokens_per_mint"] = int(r["maxMintAmount"])
     elif "MAX_TOKENS_PER_MINT" in r:
         RES["max_tokens_per_mint"] = int(r["MAX_TOKENS_PER_MINT"])
+    elif "nftPerAddressLimit" in r:
+        RES["max_tokens_per_mint"] = int(r["nftPerAddressLimit"])
+        
 
     if "baseURI" in r:
         RES["base_uri"] = r["baseURI"]
