@@ -1,6 +1,8 @@
 import requests
+from bs4 import BeautifulSoup
 
 from etherscan.consts import ETHERSCAN_BASE_URL
+from etherscan.readcontract.serializer import serialize_raw_data
 
 
 def get_etherscan_readContract_html(contract_address, chain_id):
@@ -12,14 +14,14 @@ def get_etherscan_readContract_html(contract_address, chain_id):
     )
     return res.text if "unable to retrieve a valid" not in res.text else None
 
-from bs4 import BeautifulSoup
+
 def parse_etherscan_readContract_html(html):
     """ returns constants from contract """
     soup = BeautifulSoup(html, 'html.parser')
     
     items = soup.find_all("div", attrs={"class":"card mb-3"})
     
-    RES = {}
+    RAW = {}
     for item in items:  # parse items 
         if item.find("input"):
             continue  # dynamical thing
@@ -31,7 +33,12 @@ def parse_etherscan_readContract_html(html):
         # remove types from value
         value = value.rsplit(" ", maxsplit=1)[0]
 
-        RES[name] = value
+        RAW[name] = value
+
+    serialised = serialize_raw_data(RAW)
         
-    return RES
+    return {
+        "raw_data": RAW,
+        "serialized": serialised,
+    }
 
