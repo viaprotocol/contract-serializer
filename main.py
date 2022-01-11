@@ -7,7 +7,7 @@ from etherscan.readcontract.parser import (
     get_etherscan_readContract_html,
     parse_etherscan_readContract_html,
 )
-from etherscan.api.abi import get_abi
+from etherscan.api.abi.abi import get_abi
 
 app = FastAPI()
 
