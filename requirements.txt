@@ -1,0 +1,8 @@
+fastapi
+python-dotenv
+
+uvicorn[standard]
+
+# parsing
+requests
+beautifulsoup4
