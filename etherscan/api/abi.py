@@ -1,4 +1,5 @@
 import os
+import json
 import requests
 
 from etherscan.consts import (
@@ -13,5 +14,10 @@ def get_abi(chain_id, contract_address):
         f"https://api.{ETHERSCAN_BASE_URL[chain_id] }/api?module=contract&action=getabi&address={contract_address}&apikey={api_token}",
     )
 
-    # TODO: handle not found
-    return res.json()
+    result = res.json()
+    if result.get("result"):
+        abi_dict = json.loads(result["result"])
+        return abi_dict
+
+    # can't find abi
+    return None
