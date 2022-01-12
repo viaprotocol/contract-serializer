@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 
 from fastapi import FastAPI, HTTPException
+from starlette.responses import RedirectResponse
 
 from etherscan.consts import ETHERSCAN_BASE_URL
 from etherscan.readcontract.parser import (
@@ -12,6 +13,10 @@ from etherscan.api.abi.abi import get_abi
 app = FastAPI()
 
 load_dotenv()
+
+@app.get("/")
+async def docs_redirect():
+    return RedirectResponse(url='/docs')
 
 
 @app.get("/{chain_id}/{contract_address}/readcontract")
