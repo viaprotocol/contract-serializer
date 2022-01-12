@@ -1,0 +1,7 @@
+{
+    "name": "Contract Serializer by WeBill",
+    "description": "Get unified info about EVM smart contract (Ethereum, Binance Smart Chain, Polygon)",
+    "repository": "https://github.com/webill-io/contract-serializer",
+    "logo": "https://static.tildacdn.com/tild6661-6162-4634-b530-333164623139/photo.svg",
+    "keywords": ["blockchain", "ethereum", "smart-contracts", "nft", "polygon", "binance", "bsc"]
+}
