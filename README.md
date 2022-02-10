@@ -76,4 +76,4 @@ uvicorn main:app --reload
 
 
 ---
-<i>Made by [webill.io](https://webill.io) team</i>
+<i>Made by [via.exchange](https://via.exchange) team</i>
